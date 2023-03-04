@@ -1,12 +1,10 @@
 package com.example.domain.repo
 
-import com.example.domain.entity.ModelApi.WeatherResponse
-import com.example.domain.entity.ModelDatabase.FavouriteModel
-import java.sql.Timestamp
+import com.example.domain.entity.ModelDatabase.Favourite
 
 
 interface FavRepo {
-    suspend fun getAll(): List<FavouriteModel>
-    suspend fun insert(favouriteModel: FavouriteModel)
-    suspend fun delete(favouriteModel: FavouriteModel)
+    suspend fun getAll(): List<Favourite>
+    suspend fun insert(favouriteModel: Favourite)
+    suspend fun delete(favouriteModel: Favourite)
 }

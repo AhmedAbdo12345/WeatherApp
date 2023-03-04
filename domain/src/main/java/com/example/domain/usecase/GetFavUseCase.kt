@@ -1,6 +1,5 @@
 package com.example.domain.usecase
 
-import com.example.domain.entity.ModelDatabase.FavouriteModel
 import com.example.domain.repo.FavRepo
 
 class GetFavUseCase(private val favRepo: FavRepo) {

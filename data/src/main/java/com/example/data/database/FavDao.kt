@@ -1,7 +1,6 @@
 package com.example.data.database
 
 import androidx.room.*
-import com.example.domain.entity.ModelDatabase.FavouriteModel
 
 @Dao
 interface FavDao {
