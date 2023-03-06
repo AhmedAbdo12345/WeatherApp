@@ -4,4 +4,4 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class FavouriteModel(val latitude:Double,val longitude:Double,@PrimaryKey val city:String):java.io.Serializable
+data class FavouriteModel(@PrimaryKey val city:String,val latitude:Double,val longitude:Double):java.io.Serializable

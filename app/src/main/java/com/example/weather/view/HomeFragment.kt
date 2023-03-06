@@ -15,10 +15,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.domain.entity.ModelApi.WeatherResponse
 import com.example.weather.databinding.FragmentHomeBinding
-import com.example.weather.utils.CurrentLocation
-import com.example.weather.utils.CurrentLocationStatue
-import com.example.weather.utils.IconsApp
-import com.example.weather.utils.permissionId
+import com.example.weather.utils.*
 import com.example.weather.view.adapter.DayAdapter
 import com.example.weather.view.adapter.HourAdapter
 import com.example.weather.viewmodel.WeatherViewModel
@@ -79,23 +76,36 @@ class HomeFragment : Fragment() , CurrentLocationStatue {
 
     }
 
-    override fun failed(msg: String) {
-        Log.i("zxcv", "failed: ${msg.toString()}")
 
-    }
     fun getDataFromNetwork(lat:Double,lon:Double,city:String){
         viewmodel.getWeather(lat, lon, "471513ea69403129f79bbd3675cfccf3")
 
         lifecycleScope.launch {
             viewmodel.weather.collect {
-                if (it !=null) {
+            /*    if (it !=null) {
 
                     displayHourlyRecycleView(it)
                     //--------------------------------------------------------------------------------------
                     displayDailyRecycleView(it)
                     //--------------------------------------------------------------------------------------
                     displayWeatherInfo(it,city)
+                }*/
+                when(it){
+                    is ApiStatus.Success -> {
+                        binding.progressBar.visibility=View.GONE
+                        binding.nestedScrollView.visibility=View.VISIBLE
+                        displayHourlyRecycleView(it.weatherResponse)
+                        displayDailyRecycleView(it.weatherResponse)
+                        displayWeatherInfo(it.weatherResponse,city)
+                    }
+                    is ApiStatus.Loading -> {
+                        binding.progressBar.visibility=View.VISIBLE
+                        binding.nestedScrollView.visibility=View.GONE
+                    }
+
+                    else -> {}
                 }
+
             }
         }
     }

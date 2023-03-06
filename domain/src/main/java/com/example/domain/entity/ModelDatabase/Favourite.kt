@@ -2,4 +2,4 @@ package com.example.domain.entity.ModelDatabase
 
 
 
-data class Favourite(val latitude:Double, val longitude:Double, val city:String)
+data class Favourite( val city:String,val latitude:Double, val longitude:Double)

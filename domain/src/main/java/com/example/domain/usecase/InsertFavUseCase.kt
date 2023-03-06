@@ -5,5 +5,5 @@ import com.example.domain.repo.FavRepo
 
 
 class InsertFavUseCase(private val favRepo: FavRepo) {
-    suspend operator fun invoke(favouriteModel: Favourite)=favRepo.insert(favouriteModel)
+    suspend operator fun invoke(favourite: Favourite)=favRepo.insert(favourite)
 }

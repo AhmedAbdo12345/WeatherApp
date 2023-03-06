@@ -10,21 +10,19 @@ import android.location.Address
 import android.location.Geocoder
 import android.location.Location
 import android.location.LocationManager
-import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
-import android.widget.TextView
-import android.widget.Toast
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.core.content.ContextCompat.startActivity
-import androidx.core.content.getSystemService
-import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import java.util.*
 
 const val permissionId = 19
-class CurrentLocation(val context:Context,val activity: Activity,val currentLocationStatue:CurrentLocationStatue) {
+
+class CurrentLocation(
+    val context: Context,
+    val activity: Activity,
+    val currentLocationStatue: CurrentLocationStatue
+) {
     private fun isLocationEnabled(): Boolean {
         val locationManager: LocationManager =
             context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
@@ -58,8 +56,7 @@ class CurrentLocation(val context:Context,val activity: Activity,val currentLoca
     }
 
     @SuppressLint("MissingPermission")
-    fun getLocation() :List<Address>{
-      var list : List<Address> = listOf()
+    fun getLocation() {
         if (checkPermissions()) {
             if (isLocationEnabled()) {
 
@@ -67,7 +64,11 @@ class CurrentLocation(val context:Context,val activity: Activity,val currentLoca
                     val location: Location? = task.result
                     if (location != null) {
                         val geocoder = Geocoder(context, Locale.getDefault())
-                         list= geocoder.getFromLocation(location.latitude, location.longitude, 1) as List<Address>
+                        var list = geocoder.getFromLocation(
+                            location.latitude,
+                            location.longitude,
+                            1
+                        ) as List<Address>
                         currentLocationStatue.success(list)
                         Log.i("zxcv", "getLocation3555: ${list}")
                     }
@@ -80,7 +81,6 @@ class CurrentLocation(val context:Context,val activity: Activity,val currentLoca
             requestPermissions()
         }
 
-        return list
     }
 
 }
