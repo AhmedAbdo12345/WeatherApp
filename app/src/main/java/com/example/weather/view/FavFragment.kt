@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -19,9 +20,9 @@ import com.example.weather.view.adapter.FavAdapter
 import com.example.weather.viewmodel.FavouriteViewModel
 import kotlinx.coroutines.launch
 
-class FavFragment : Fragment(),FavAdapter.ListItemClickListener {
+class FavFragment : Fragment(),FavAdapter.ListItemClickListener,FavAdapter.ListItemClickListenerDelete {
     lateinit var binding: FragmentFavBinding
-    var favAdapter = FavAdapter(this@FavFragment)
+    var favAdapter = FavAdapter(this@FavFragment,this@FavFragment)
 
     private val viewmodel:FavouriteViewModel by activityViewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -76,8 +77,10 @@ class FavFragment : Fragment(),FavAdapter.ListItemClickListener {
     }
 
     override fun onClickFav(favouriteModel: FavouriteModel) {
-        displayDeleteAlertDialog(favouriteModel)
 
+        val action: FavFragmentDirections.ActionFavFragmentToHomeFragment =
+            FavFragmentDirections.actionFavFragmentToHomeFragment().setFavModel(favouriteModel)
+        findNavController(view!!).navigate(action)
     }
 
     fun displayDeleteAlertDialog(model: FavouriteModel){
@@ -96,5 +99,9 @@ class FavFragment : Fragment(),FavAdapter.ListItemClickListener {
         }
         var dialog=alert.create()
         dialog.show()
+    }
+
+    override fun onClickFavDelete(favouriteModel: FavouriteModel) {
+        displayDeleteAlertDialog(favouriteModel)
     }
 }

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Weather </string>
+
+    <string name="next">التالى </string>
+    <string name="previous">السابق </string>
+    <string name="Pressure">الضغط</string>
+    <string name="Humidity">الرطوبة</string>
+    <string name="Wind">الرياح </string>
+    <string name="Cloud">السحاب</string>
+    <string name="Ultra_Violet">مؤشر UV</string>
+    <string name="Visibility">الرؤية </string>
+    <string name="Temperature">درجة الحرارة</string>
+    <string name="Sun_Rise">شروق الشمس</string>
+    <string name="Sun_Set">غروب الشمس</string>
+    <string name="Change_Language">تغيير اللغة </string>
+    <string name="Arabic">عربى </string>
+    <string name="English">انجليزى</string>
+    <string name="Location">الموقع</string>
+    <string name="Map">الخريطة</string>
+    <string name="GPS">الموقع الحالي</string>
+    <string name="Notifications">الاشعارات</string>
+
+    <string name="Home">الرئيسية  </string>
+    <string name="Favourite"> المفضلة </string>
+    <string name="Setting">الاعدادات </string>
+
+
+
+</resources>

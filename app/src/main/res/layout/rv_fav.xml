@@ -10,6 +10,10 @@
         <variable
             name="action"
             type="com.example.weather.view.adapter.FavAdapter.ListItemClickListener" />
+        <variable
+            name="actionDelete"
+            type="com.example.weather.view.adapter.FavAdapter.ListItemClickListenerDelete" />
+
     </data>
 
     <androidx.cardview.widget.CardView
@@ -20,6 +24,7 @@
         android:layout_margin="5dp"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:onClick="@{()->action.onClickFav(favModel)}"
         >
 
         <LinearLayout
@@ -37,7 +42,6 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
                 android:text="City"
-                android:gravity="left"
                 android:paddingStart="15dp"
                 android:paddingEnd="5dp"
                 android:textColor="@color/white"
@@ -48,11 +52,10 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_weight="1"
-                android:gravity="left"
                 android:paddingStart="15dp"
                 android:paddingEnd="5dp"
                 android:src="@drawable/delete_white_icon"
-                android:onClick="@{()->action.onClickFav(favModel)}"
+                android:onClick="@{()->actionDelete.onClickFavDelete(favModel)}"
                 />
         </LinearLayout>
     </androidx.cardview.widget.CardView>

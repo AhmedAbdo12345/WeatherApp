@@ -1,14 +1,29 @@
 <resources>
     <string name="app_name">Weather</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_main2222">MainActivity2222</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
+
     <string name="next">Next</string>
     <string name="previous">Previous</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+    <string name="Pressure">Pressure</string>
+    <string name="Humidity">Humidity</string>
+    <string name="Wind">Wind</string>
+    <string name="Cloud">Cloud</string>
+    <string name="Ultra_Violet">Ultra Violet</string>
+    <string name="Visibility">Visibility</string>
+    <string name="Temperature">Temperature</string>
+    <string name="Sun_Rise">Sun Rise</string>
+    <string name="Sun_Set">Sun Set</string>
+
+    <string name="Change_Language">Change Language</string>
+    <string name="Arabic">Arabic</string>
+    <string name="English">English</string>
+    <string name="Location">Location</string>
+    <string name="Map">Map</string>
+    <string name="GPS">GPS</string>
+    <string name="Notifications">Notifications</string>
+
+    <string name="Home">Home</string>
+    <string name="Favourite">Favourite</string>
+    <string name="Setting">Setting</string>
 </resources>

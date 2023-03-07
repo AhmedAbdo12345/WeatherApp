@@ -10,9 +10,12 @@ import com.example.weather.databinding.RvFavBinding
 import kotlinx.coroutines.flow.MutableStateFlow
 
 import kotlin.collections.List
-class FavAdapter (var mClickListener: FavAdapter.ListItemClickListener) : ListAdapter<FavouriteModel, FavAdapter.FavViewHolder>(FavDiffUtils()) {
+class FavAdapter (var deleteClickListener: FavAdapter.ListItemClickListenerDelete,var mClickListener: FavAdapter.ListItemClickListener) : ListAdapter<FavouriteModel, FavAdapter.FavViewHolder>(FavDiffUtils()) {
 
     lateinit var binding: RvFavBinding
+    interface ListItemClickListenerDelete {
+        fun onClickFavDelete(favouriteModel: FavouriteModel)
+    }
     interface ListItemClickListener {
         fun onClickFav(favouriteModel: FavouriteModel)
     }
@@ -28,6 +31,7 @@ class FavAdapter (var mClickListener: FavAdapter.ListItemClickListener) : ListAd
     override fun onBindViewHolder(holder: FavViewHolder, position: Int)  {
         holder.binding.tvCityFav.text=getItem(position).city
         holder.binding.favModel= getItem(position)
+        holder.binding.actionDelete= deleteClickListener
         holder.binding.action= mClickListener
     }
 }

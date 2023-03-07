@@ -3,12 +3,12 @@
     <group android:checkableBehavior="single">
     <item
         android:id="@+id/homeFragment"
-        android:title="Home" />
+        android:title="@string/Home" />
     <item
         android:id="@+id/favFragment"
-        android:title="Favourite" />
+        android:title="@string/Favourite" />
     <item
         android:id="@+id/settingFragment"
-        android:title="Setting" />
+        android:title="@string/Setting" />
     </group>
 </menu>

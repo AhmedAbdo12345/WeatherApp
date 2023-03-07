@@ -20,11 +20,10 @@
         android:orientation="vertical"
         tools:context=".view.HomeFragment">
 
-            <ProgressBar
-                android:id="@+id/progress_bar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center" />
+<ProgressBar
+    android:id="@+id/progressBar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"/>
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/nested_scroll_view"
@@ -110,6 +109,7 @@
             android:layout_margin="5dp"
             android:orientation="horizontal"
             android:scrollbars="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:setAdapter="@{adapter}"
             tools:listitem="@layout/rv_hour_temp" />
 
@@ -147,7 +147,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-                                android:text="Pressure"
+                                android:text="@string/Pressure"
                                 android:textSize="16sp"
                                 android:textColor="@color/white"/>
 
@@ -188,7 +188,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-                                android:text="Humidity"
+                                android:text="@string/Humidity"
                                 android:textColor="@color/white"
 
                                 android:textSize="16sp" />
@@ -231,7 +231,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-                                android:text="Wind"
+                                android:text="@string/Wind"
                                 android:textColor="@color/white"
 
                                 android:textSize="16sp" />
@@ -283,7 +283,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-                                android:text="Cloud"
+                                android:text="@string/Cloud"
                                 android:textColor="@color/white"
                                 android:textSize="16sp" />
 
@@ -324,7 +324,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-                                android:text="ultra violet"
+                                android:text="@string/Ultra_Violet"
                                 android:textColor="@color/white"
 
                                 android:textSize="16sp" />
@@ -367,7 +367,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-                                android:text="Visibility"
+                                android:text="@string/Visibility"
                                 android:textColor="@color/white"
 
                                 android:textSize="16sp" />
@@ -385,7 +385,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-                                android:hint="wind"
+                                android:hint="Visibility"
                                 android:textColor="@color/white"
 
                                 android:textSize="16sp" />
@@ -419,7 +419,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-                                android:text="Temperature"
+                                android:text="@string/Temperature"
                                 android:textColor="@color/white"
                                 android:textSize="16sp" />
 
@@ -461,7 +461,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-                                android:text="Sun Rise"
+                                android:text="@string/Sun_Rise"
                                 android:textColor="@color/white"
                                 android:textSize="16sp" />
 
@@ -505,7 +505,7 @@
                                 android:gravity="center"
                                 android:textColor="@color/white"
 
-                                android:text="Sun Set"
+                                android:text="@string/Sun_Set"
                                 android:textSize="16sp" />
 
 
@@ -521,7 +521,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-                                android:hint="wind"
+                                android:hint="Sun Set"
                                 android:textColor="@color/white"
                                 android:textSize="16sp" />
                         </LinearLayout>

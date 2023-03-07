@@ -1,109 +1,198 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:background="@drawable/background"
-    tools:context=".view.SettingFragment">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:backgroundTint="@color/color_items"
-        android:elevation="50dp"
-        app:cardCornerRadius="10dp">
-  <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_margin="5dp"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:weightSum="3">
+    <data>
 
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_weight="0.5"
-            android:src="@drawable/language_black_icon" />
+    </data>
 
-
-        <TextView
-            android:id="@+id/tv_description_day"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:gravity="left"
-            android:text="Change Language"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
-
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_weight="0.5"
-            android:src="@drawable/arrow_black_icon" />
-
-    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/background"
         android:gravity="center"
-        android:orientation="horizontal"
-        android:weightSum="3"
-        android:background="#9EFFFFFF">
+        android:orientation="vertical"
+        tools:context=".view.SettingFragment">
 
-  <RadioGroup
-      android:id="@+id/radioGroup1"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_margin="5dp">
-
-        <androidx.appcompat.widget.AppCompatRadioButton
-            android:id="@+id/radioButton1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Arabic"
-            android:textSize="24sp" />
-
-        <androidx.appcompat.widget.AppCompatRadioButton
-            android:id="@+id/radioButton2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="English"
-            android:textSize="24sp" />
-  </RadioGroup>
-
-
-
-
-    </LinearLayout>
-</LinearLayout>
-
-
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:backgroundTint="@color/color_items"
-        android:elevation="50dp"
-        app:cardCornerRadius="10dp">
-        <LinearLayout
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView_Language"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:backgroundTint="@color/color_items"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="50dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_margin="5dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="0.5"
+                        android:src="@drawable/language_white_icon" />
+
+
+                    <TextView
+                        android:id="@+id/tv_description_day"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/Change_Language"
+                        android:textColor="@color/white"
+                        android:textSize="20sp" />
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="0.5"
+                        android:src="@drawable/arrow_white_icon" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutLanguage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#9EFFFFFF"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    android:weightSum="3">
+
+                    <RadioGroup
+                        android:id="@+id/radioGroupLanguage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp">
+
+                        <androidx.appcompat.widget.AppCompatRadioButton
+                            android:id="@+id/appCompatRadioBtn_Arabic"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/Arabic"
+                            android:textSize="24sp" />
+
+                        <androidx.appcompat.widget.AppCompatRadioButton
+                            android:id="@+id/appCompatRadioBtn_English"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/English"
+                            android:textSize="24sp" />
+                    </RadioGroup>
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView_Location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:backgroundTint="@color/color_items"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="50dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_margin="5dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:weightSum="3">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="0.5"
+                        android:src="@drawable/location_white_icon" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:text="@string/Location"
+                        android:textColor="@color/white"
+                        android:textSize="20sp" />
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="0.5"
+                        android:src="@drawable/arrow_white_icon" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutLocation"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#9EFFFFFF"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    android:weightSum="3">
+
+                    <RadioGroup
+                        android:id="@+id/radioGroupLocation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp">
+
+                        <androidx.appcompat.widget.AppCompatRadioButton
+                            android:id="@+id/appCompatRadioBtn_Map"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/Map"
+                            android:textSize="24sp" />
+
+                        <androidx.appcompat.widget.AppCompatRadioButton
+                            android:id="@+id/appCompatRadioBtn_GPS"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/GPS"
+                            android:textSize="24sp" />
+                    </RadioGroup>
+
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_margin="5dp"
+            android:backgroundTint="@color/color_items"
+            app:cardElevation="50dp"
+            app:cardCornerRadius="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_margin="5dp"
                 android:gravity="center"
                 android:orientation="horizontal"
@@ -113,97 +202,26 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_weight="0.5"
-                    android:src="@drawable/language_black_icon" />
+                    android:src="@drawable/notifications_white_icon" />
 
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
-                    android:gravity="left"
-                    android:text="Location"
+                    android:text="@string/Notifications"
                     android:textColor="@color/white"
                     android:textSize="20sp" />
 
-                <ImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_weight="0.5"
-                    android:src="@drawable/arrow_black_icon" />
-
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:weightSum="3"
-                android:background="#9EFFFFFF">
-
-                <RadioGroup
-                    android:layout_width="match_parent"
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/daySwitchCompat"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="5dp">
-
-                    <androidx.appcompat.widget.AppCompatRadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Map"
-                        android:textSize="24sp" />
-
-                    <androidx.appcompat.widget.AppCompatRadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="GPs"
-                        android:textSize="24sp" />
-                </RadioGroup>
-
-
-
+                    android:layout_weight="0.5"
+                    android:gravity="center"
+                    app:switchMinWidth="80dp" />
 
             </LinearLayout>
-        </LinearLayout>
-
-
-    </androidx.cardview.widget.CardView>
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_margin="5dp"
-        android:backgroundTint="@color/color_items"
-        android:elevation="50dp"
-        app:cardCornerRadius="10dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="5dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:weightSum="3">
-
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_weight="0.5"
-                android:src="@drawable/language_black_icon" />
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:gravity="left"
-                android:text="Notifications"
-                android:textColor="@color/white"
-                android:textSize="20sp" />
-
-            <androidx.appcompat.widget.SwitchCompat
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_weight="0.5"
-                android:src="@drawable/arrow_black_icon" />
-
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-</LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+</layout>

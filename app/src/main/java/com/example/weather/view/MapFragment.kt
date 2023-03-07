@@ -2,6 +2,7 @@ package com.example.weather.view
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
@@ -31,6 +32,8 @@ import com.google.android.libraries.places.widget.listener.PlaceSelectionListene
 class MapFragment : Fragment(), OnMapReadyCallback {
 lateinit var map:GoogleMap
 lateinit var favouriteModel: FavouriteModel
+    val sharedPreference = requireActivity().getSharedPreferences("PREFERENCE_NAME", Context.MODE_PRIVATE)
+
     private val favouriteViewModel: FavouriteViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {

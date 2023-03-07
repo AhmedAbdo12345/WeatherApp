@@ -14,12 +14,25 @@
         android:id="@+id/homeFragment"
         android:name="com.example.weather.view.HomeFragment"
         android:label="Home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <argument
+            android:name="favModel"
+            app:argType="com.example.data.database.FavouriteModel"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
     <fragment
         android:id="@+id/settingFragment"
         android:name="com.example.weather.view.SettingFragment"
         android:label="Setting"
-        tools:layout="@layout/fragment_setting" />
+        tools:layout="@layout/fragment_setting" >
+        <action
+            android:id="@+id/action_settingFragment_to_mainActivity"
+            app:destination="@id/mainActivity" />
+        <action
+            android:id="@+id/action_settingFragment_to_mapFragment"
+            app:destination="@id/mapFragment" />
+    </fragment>
     <fragment
         android:id="@+id/favFragment"
         android:name="com.example.weather.view.FavFragment"
@@ -28,5 +41,12 @@
         <action
             android:id="@+id/action_favFragment_to_mapFragment"
             app:destination="@id/mapFragment" />
+        <action
+            android:id="@+id/action_favFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.example.weather.view.MainActivity"
+        android:label="mainActivity" />
 </navigation>
