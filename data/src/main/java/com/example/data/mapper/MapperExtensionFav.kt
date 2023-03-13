@@ -1,9 +1,8 @@
 package com.example.data.mapper
 
-import com.example.data.database.FavouriteModel
+import com.example.data.database.fav.FavouriteModel
 import com.example.data.utils.Constants
 import com.example.domain.entity.ModelDatabase.Favourite
-import kotlinx.coroutines.flow.MutableStateFlow
 
 fun FavouriteModel?.toDomainModel(): Favourite {
     return Favourite(

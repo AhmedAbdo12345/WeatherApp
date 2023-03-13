@@ -6,7 +6,7 @@
     <data>
         <variable
             name="favModel"
-            type="com.example.data.database.FavouriteModel" />
+            type="com.example.data.database.fav.FavouriteModel" />
         <variable
             name="action"
             type="com.example.weather.view.adapter.FavAdapter.ListItemClickListener" />

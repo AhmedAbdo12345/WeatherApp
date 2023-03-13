@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="15dp"
+    android:weightSum="2"
+    android:background="@color/white">
+
+
+<androidx.cardview.widget.CardView
+    android:id="@+id/cardview_alert_from"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+   android:elevation="10dp" >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="10dp"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginTop="2dp"
+            android:text="From"
+            android:textStyle="bold"
+            android:textColor="#7868e5"
+            android:textSize="20sp" />
+        <EditText
+            android:id="@+id/edt_start_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="- -"
+            android:textSize="18dp"
+            android:focusable="false"
+            android:drawableEnd="@drawable/time_black_icon" />
+
+        <EditText
+            android:id="@+id/edt_start_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="- -"
+            android:textSize="18dp"
+            android:focusable="false"
+            android:drawableEnd="@drawable/calendar_today_black_icon" />
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardview_alert_to"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="10dp"
+        android:layout_marginTop="20sp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="10dp"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:layout_marginTop="2dp"
+                android:text="To"
+                android:textStyle="bold"
+                android:textColor="#7868e5"
+                android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/edt_end_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="- -"
+            android:textSize="18dp"
+            android:focusable="false"
+
+            android:drawableEnd="@drawable/time_black_icon" />
+
+        <EditText
+            android:id="@+id/edt_end_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:hint="- -"
+            android:textSize="18dp"
+            android:focusable="false"
+            android:drawableEnd="@drawable/calendar_today_black_icon" />
+    </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <RadioGroup
+        android:id="@+id/radioGroupAlert"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/appCompatRadioBtn_alarm"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/Alert"
+            android:textSize="24sp"
+            android:layout_weight="0.75"/>
+
+        <androidx.appcompat.widget.AppCompatRadioButton
+            android:id="@+id/appCompatRadioBtn_notification"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.25"
+            android:text="@string/Notifications"
+            android:textSize="24sp" />
+    </RadioGroup>
+
+
+    <Button
+        android:id="@+id/btn_add_alert"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add"
+        android:textColor="@color/white" />
+    <Button
+        android:id="@+id/btn_cancle_alert"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Cancle"
+        android:textColor="@color/white" />
+</LinearLayout>
+

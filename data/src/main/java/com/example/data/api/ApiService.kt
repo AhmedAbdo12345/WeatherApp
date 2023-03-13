@@ -8,6 +8,6 @@ import java.sql.Timestamp
 
 interface ApiService {
     @GET("onecall")
-    suspend fun getWeather(@Query("lat")lat:Double,@Query("lon")lon:Double,@Query("appid")apiKey:String): WeatherResponse
+    suspend fun getWeather(@Query("lat")lat:Double,@Query("lon")lon:Double,@Query("lang")lang:String,@Query("appid")apiKey:String): WeatherResponse
 
 }

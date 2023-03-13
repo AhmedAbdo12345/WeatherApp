@@ -7,7 +7,9 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.Navigation.findNavController
+import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
 import androidx.navigation.ui.NavigationUI.setupWithNavController
+import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.weather.R
 import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,6 +34,7 @@ class MainActivity : AppCompatActivity() {
         actionBar!!.setDisplayHomeAsUpEnabled(true)
         navController = findNavController(this, R.id.nav_host_fragment)
         setupWithNavController(navigationView, navController)
+
 
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
 

@@ -24,7 +24,11 @@
     <string name="Home">الرئيسية  </string>
     <string name="Favourite"> المفضلة </string>
     <string name="Setting">الاعدادات </string>
+    <string name="Alert">Alert</string>
 
-
-
+    <string name="Celsius">والسيلسيوس </string>
+    <string name="Fahrenheit">والفهرنهايت</string>
+    <string name="Kelvin">الكلفن </string>
+    <string name="Not_Found_Internet_Connection">لم يتم العثور على اتصال بالإنترنت</string>
+    <string name="try_again">حاول مرة أخري</string>
 </resources>

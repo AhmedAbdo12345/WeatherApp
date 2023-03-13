@@ -19,30 +19,37 @@ import java.time.format.DateTimeFormatter
 import java.util.*
 
 
-class DayAdapter(var weatherResponse: WeatherResponse?) : RecyclerView.Adapter<DayAdapter. DailyViewHolder>() {
+class DayAdapter(var weatherResponse: WeatherResponse?) :
+    RecyclerView.Adapter<DayAdapter.DailyViewHolder>() {
 
     lateinit var binding: RvDayBinding
 
 
+    class DailyViewHolder(var binding: RvDayBinding) : RecyclerView.ViewHolder(binding.root)
 
-
-
-    class  DailyViewHolder(var binding: RvDayBinding) : RecyclerView.ViewHolder(binding.root)
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):  DailyViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DailyViewHolder {
         //    var inflate=(LayoutInflater.from(parent.context).inflate(R.layout.rv_item, parent, false))as LayoutInflater
-        var inflate = parent.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        var inflate =
+            parent.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         binding = RvDayBinding.inflate(inflate, parent, false)
-        return  DailyViewHolder(binding)
+        return DailyViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder:  DailyViewHolder, position: Int)  {
+    override fun onBindViewHolder(holder: DailyViewHolder, position: Int) {
         if (weatherResponse != null) {
-            holder.binding.tvDay.text=getDay(weatherResponse!!.daily[position].dt)
-            IconsApp.getSuitableIcon(weatherResponse!!.daily[position].weather[0].icon,holder.binding.imgStatusDay)
-            holder.binding.tvDescriptionDay.text=weatherResponse!!.daily[position].weather[0].description
-         //   holder.binding.tvTempDay.text=(((weatherResponse!!.daily[position].temp.day)-273.15).toString())
-            holder.binding.tvTempDay.text=roundTemp(((weatherResponse!!.daily[position].temp.day)-273.15)) + "\u00B0"
+            holder.binding.tvDay.text = getDay(weatherResponse!!.daily[position].dt)
+            IconsApp.getSuitableIcon(
+                weatherResponse!!.daily[position].weather[0].icon,
+                holder.binding.imgStatusDay
+            )
+            holder.binding.tvDescriptionDay.text =
+                weatherResponse!!.daily[position].weather[0].description
+            //   holder.binding.tvTempDay.text=(((weatherResponse!!.daily[position].temp.day)-273.15).toString())
+
+            //---------this method to convert number like 19.7875789621245  to 19.79 ---------------------------------
+            var approximateTemp = ApproximateTemp()
+            holder.binding.tvTempDay.text =
+                approximateTemp((weatherResponse!!.daily[position].temp.day) - 273.15) + "\u00B0"
 
 
         }
@@ -52,17 +59,18 @@ class DayAdapter(var weatherResponse: WeatherResponse?) : RecyclerView.Adapter<D
     override fun getItemCount(): Int {
         return weatherResponse?.daily?.size ?: 2
     }
-    
+
     fun getDay(dt: Int): String {
         val cityTxtFormat = SimpleDateFormat("E")
         val cityTxtData = Date(dt.toLong() * 1000)
         return cityTxtFormat.format(cityTxtData)
     }
-//---------this method to convert number like 19.7875789621245  to 19.79 ---------------------------------
-    fun roundTemp(num:Double):String {
+
+    //---------this method to convert number like 19.7875789621245  to 19.79 ---------------------------------
+/*    fun roundTemp(num: Double): String {
         val df = DecimalFormat("#.##")
         df.roundingMode = RoundingMode.CEILING
 
-return df.format(num)
-    }
+        return df.format(num)
+    }*/
 }

@@ -1,6 +1,7 @@
 package com.example.weather.view
 
 
+import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
@@ -11,29 +12,48 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.data.database.FavouriteModel
+import com.example.data.database.weather.WeatherDBModel
 import com.example.data.utils.Constants
+import com.example.domain.entity.ModelApi.Minutely
 import com.example.domain.entity.ModelApi.WeatherResponse
+import com.example.weather.R
 import com.example.weather.databinding.FragmentHomeBinding
 import com.example.weather.utils.*
 import com.example.weather.view.adapter.DayAdapter
 import com.example.weather.view.adapter.HourAdapter
+import com.example.weather.viewmodel.WeatherDatabaseViewModel
 import com.example.weather.viewmodel.WeatherViewModel
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
-//375d11598481406538e244d548560243
+
+//
+
 class HomeFragment : Fragment(), CurrentLocationStatue {
+
+
     lateinit var binding: FragmentHomeBinding
     private val viewmodel: WeatherViewModel by activityViewModels()
+    private val viewmodelDatabase: WeatherDatabaseViewModel by activityViewModels()
+
     lateinit var currentLocation: CurrentLocation
-    lateinit var sharedPreference:SharedPreferences
+    lateinit var sharedPreference: SharedPreferences
+    lateinit var editor: SharedPreferences.Editor
+    var currentLanguage: String = "en"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        sharedPreference =
+            requireActivity().getSharedPreferences("PREFERENCE_NAME", Context.MODE_PRIVATE)
+        editor = sharedPreference.edit()
+        currentLanguage = sharedPreference.getString(Constants.Language, "en").toString()
+        checkLanguage(currentLanguage)
 
     }
 
@@ -50,19 +70,39 @@ class HomeFragment : Fragment(), CurrentLocationStatue {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-         sharedPreference = requireActivity().getSharedPreferences("PREFERENCE_NAME", Context.MODE_PRIVATE)
-        checkLanguage()
+
+
+        var locationType = sharedPreference.getString(Constants.Location, "GPS")
 
         var model = HomeFragmentArgs.fromBundle(requireArguments()).favModel
         if (model != null) {
-            getDataFromNetwork(model.latitude, model.longitude, model.city)
+            getDataFromNetwork(model.latitude, model.longitude, currentLanguage, model.city)
         } else {
-            currentLocation = CurrentLocation(requireContext(), requireActivity(), this)
-            currentLocation.getLocation()
+            if (locationType.equals("Map")) {
+                var city = sharedPreference.getString(Constants.CityName, "")
+                var lat = sharedPreference.getString(Constants.Latitude, "0.0")
+                var long = sharedPreference.getString(Constants.Longitude, "0.0")
+                getDataFromNetwork(
+                    lat?.toDouble() ?: 0.0,
+                    long?.toDouble() ?: 0.0,
+                    currentLanguage,
+                    city!!
+                )
+
+            } else {
+                currentLocation =
+                    CurrentLocation(requireContext(), requireActivity(), this, currentLanguage)
+                currentLocation.getLocation()
+            }
+
 
         }
 
+        binding.btnTryAgain.setOnClickListener() {
 
+            NavHostFragment.findNavController(this@HomeFragment)
+                .navigate(R.id.action_homeFragment_self)
+        }
     }
 
     fun getDateTime(
@@ -93,35 +133,89 @@ class HomeFragment : Fragment(), CurrentLocationStatue {
     }
 
     override fun success(list: List<Address>) {
-        getDataFromNetwork(list[0].latitude, list[0].longitude, list[0].adminArea)
+
+        getDataFromNetwork(list[0].latitude, list[0].longitude, currentLanguage, list[0].adminArea)
+
+        editor.putString(Constants.Location, "GPS")
+        editor.putString(Constants.CityName, list[0].adminArea)
+        editor.putString(Constants.Latitude, (list[0].latitude).toString())
+        editor.putString(Constants.Longitude, (list[0].longitude).toString())
+        editor.commit()
 
     }
 
 
-    fun getDataFromNetwork(lat: Double, lon: Double, city: String) {
-        viewmodel.getWeather(lat, lon, "471513ea69403129f79bbd3675cfccf3")
+    fun getDataFromNetwork(lat: Double, lon: Double, lang: String, city: String) {
+
+        viewmodel.getWeather(lat, lon, lang, getString(R.string.API_KEY2))
 
         lifecycleScope.launch {
             viewmodel.weather.collect {
-                /*    if (it !=null) {
 
-                        displayHourlyRecycleView(it)
-                        //--------------------------------------------------------------------------------------
-                        displayDailyRecycleView(it)
-                        //--------------------------------------------------------------------------------------
-                        displayWeatherInfo(it,city)
-                    }*/
                 when (it) {
                     is ApiStatus.Success -> {
-                        binding.progressBar.visibility = View.GONE
+
                         binding.nestedScrollView.visibility = View.VISIBLE
+                        binding.progressBar.visibility = View.GONE
+
                         displayHourlyRecycleView(it.weatherResponse)
                         displayDailyRecycleView(it.weatherResponse)
                         displayWeatherInfo(it.weatherResponse, city)
+                        //       binding.layoutFailedGetData.visibility = View.GONE
+                        //-----Save Response in Room----------------------------------
+                        //----I make this steps to put "id" with fixed number save one row in table
+                        // ----and to Save City Name ------------------------------------
+                        var obj = it.weatherResponse
+                        var emptyList: List<Minutely> = emptyList()
+                        var weatherDBModel = WeatherDBModel(
+                            1,
+                            city,
+                            obj.current,
+                            obj.daily,
+                            obj.hourly,
+                            obj.lat,
+                            obj.lon,
+                            emptyList,
+                            obj.timezone,
+                            obj.timezone_offset
+                        )
+                        viewmodelDatabase.insertWeatherInRoom(weatherDBModel)
+                        //---------------------------------------
+
+
                     }
                     is ApiStatus.Loading -> {
                         binding.progressBar.visibility = View.VISIBLE
                         binding.nestedScrollView.visibility = View.GONE
+                        //    binding.layoutFailedGetData.visibility = View.GONE
+
+                    }
+                    is ApiStatus.Failed -> {
+                        /* binding.layoutFailedGetData.visibility = View.VISIBLE
+                          binding.progressBar.visibility = View.GONE
+                          binding.nestedScrollView.visibility = View.GONE*/
+                        binding.nestedScrollView.visibility = View.VISIBLE
+                        binding.progressBar.visibility = View.GONE
+                        viewmodelDatabase.getAllWeatherFromRoom()
+                        viewmodelDatabase.allWeatherFromRoom.collect() { db ->
+                            if (db != null) {
+                                var weatherResponse = WeatherResponse(
+                                    db[0].current,
+                                    db[0].daily,
+                                    db[0].hourly,
+                                    db[0].lat,
+                                    db[0].lon,
+                                    db[0].minutely!!,
+                                    db[0].timezone,
+                                    db[0].timezone_offset
+                                )
+                                displayHourlyRecycleView(weatherResponse)
+                                displayDailyRecycleView(weatherResponse)
+                                displayWeatherInfo(weatherResponse, db[0].city)
+                            }
+
+                        }
+
                     }
 
                     else -> {}
@@ -157,7 +251,8 @@ class HomeFragment : Fragment(), CurrentLocationStatue {
         binding.tvCity.text = city
         binding.tvDate.text = getDateTime(wr.current.dt)
         IconsApp.getSuitableIcon(wr.current.weather[0].icon, binding.imgStatusWeather)
-        binding.tvCurrentTemp.text = ((wr.current.temp).minus(273.15).toString())
+        var approximateTemp = ApproximateTemp()
+        binding.tvCurrentTemp.text = approximateTemp((wr.current.temp).minus(273.15)) + "\u00B0"
         binding.tvDescription.text = wr.current.weather.get(0).description
         //---------------------------------------------------------------------------------------
 
@@ -176,9 +271,9 @@ class HomeFragment : Fragment(), CurrentLocationStatue {
 
     }
 
-    fun checkLanguage() {
+    fun checkLanguage(language: String) {
 
-        val locale = Locale(sharedPreference.getString(Constants.Language, "en"))
+        val locale = Locale(language)
 
         Locale.setDefault(locale)
         val config = Configuration()

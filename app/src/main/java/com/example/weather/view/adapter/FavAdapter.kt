@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.data.database.FavouriteModel
+import com.example.data.database.fav.FavouriteModel
 import com.example.weather.databinding.RvFavBinding
 import kotlinx.coroutines.flow.MutableStateFlow
 

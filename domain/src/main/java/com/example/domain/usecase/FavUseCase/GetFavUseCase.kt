@@ -1,4 +1,4 @@
-package com.example.domain.usecase
+package com.example.domain.usecase.FavUseCase
 
 import com.example.domain.repo.FavRepo
 

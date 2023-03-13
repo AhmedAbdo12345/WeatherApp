@@ -18,16 +18,17 @@ class WeatherViewModel @Inject constructor(private val getWeatherUseCase:GetWeat
     private var _weather: MutableStateFlow<ApiStatus?> = MutableStateFlow(null)
     val weather: StateFlow<ApiStatus?> =_weather
 
-    fun getWeather(lat:Double, lon:Double, apiKey:String){
+    fun getWeather(lat:Double, lon:Double,lang:String ,apiKey:String){
         viewModelScope.launch {
             try {
                 _weather.emit(ApiStatus.Loading(""))
 
                // _weather.value=getWeatherUseCase(lat,lon,apiKey)
 
-                _weather.emit(ApiStatus.Success(getWeatherUseCase(lat,lon,apiKey)))
+                _weather.emit(ApiStatus.Success(getWeatherUseCase(lat,lon,lang,apiKey)))
             }catch (e:Exception){
                 Log.e("WeatherViewModel", e.message.toString())
+                _weather.emit(ApiStatus.Failed(e.message.toString()))
 
             }
         }

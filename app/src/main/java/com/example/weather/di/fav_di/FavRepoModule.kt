@@ -1,6 +1,6 @@
 package com.example.weather.di.fav_di
 
-import com.example.data.database.FavDatabase
+import com.example.data.database.fav.FavDatabase
 import com.example.data.repo.FavRepoImpl
 import com.example.domain.repo.FavRepo
 import dagger.Module

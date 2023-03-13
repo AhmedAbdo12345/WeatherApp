@@ -13,7 +13,7 @@ import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.data.database.FavouriteModel
+import com.example.data.database.fav.FavouriteModel
 import com.example.weather.R
 import com.example.weather.databinding.FragmentFavBinding
 import com.example.weather.view.adapter.FavAdapter

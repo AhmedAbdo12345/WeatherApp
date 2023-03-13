@@ -9,8 +9,9 @@ class WeatherRepoImpl(private val apiService: ApiService):WeatherRepo {
     override suspend fun getWeatherFromApi(
         lat: Double,
         lon: Double,
+        lang:String,
         apiKey: String
-    ): WeatherResponse =apiService.getWeather(lat,lon,apiKey)
+    ): WeatherResponse =apiService.getWeather(lat,lon,lang,apiKey)
 
 
 }

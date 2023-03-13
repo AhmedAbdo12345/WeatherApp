@@ -42,19 +42,10 @@
             android:layout_marginTop="5dp"
             android:text="30"
             android:textSize="16dp"
-            android:maxLength="5"
             android:textColor="@color/white"
             tools:layout_editor_absoluteX="40dp"
             tools:layout_editor_absoluteY="36dp" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="22dp"
-            android:layout_marginTop="5dp"
-            android:text=" &#xb0;C"
-            android:textSize="16dp"
-            android:textColor="@color/white"
-            tools:layout_editor_absoluteX="40dp"
-            tools:layout_editor_absoluteY="36dp" />
+
     </LinearLayout>
 
 </LinearLayout>

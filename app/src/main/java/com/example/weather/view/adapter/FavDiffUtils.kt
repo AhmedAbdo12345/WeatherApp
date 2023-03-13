@@ -1,7 +1,7 @@
 package com.example.weather.view.adapter
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.data.database.FavouriteModel
+import com.example.data.database.fav.FavouriteModel
 
 class FavDiffUtils: DiffUtil.ItemCallback<FavouriteModel>() {
     override fun areItemsTheSame(oldItem: FavouriteModel, newItem: FavouriteModel): Boolean {

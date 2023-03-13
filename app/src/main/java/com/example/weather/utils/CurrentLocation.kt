@@ -21,7 +21,8 @@ const val permissionId = 19
 class CurrentLocation(
     val context: Context,
     val activity: Activity,
-    val currentLocationStatue: CurrentLocationStatue
+    val currentLocationStatue: CurrentLocationStatue,
+    val language:String
 ) {
     private fun isLocationEnabled(): Boolean {
         val locationManager: LocationManager =
@@ -63,7 +64,7 @@ class CurrentLocation(
                 LocationServices.getFusedLocationProviderClient(activity).lastLocation.addOnCompleteListener { task ->
                     val location: Location? = task.result
                     if (location != null) {
-                        val geocoder = Geocoder(context, Locale.getDefault())
+                        val geocoder = Geocoder(context, Locale(language))
                         var list = geocoder.getFromLocation(
                             location.latitude,
                             location.longitude,
@@ -77,10 +78,11 @@ class CurrentLocation(
                 val intent = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
                 context.startActivity(intent)
             }
-        } else {
-            requestPermissions()
-        }
+             } else {
+                 requestPermissions()
 
+
+        }
     }
 
 }

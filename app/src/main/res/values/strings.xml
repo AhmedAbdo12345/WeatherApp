@@ -26,4 +26,16 @@
     <string name="Home">Home</string>
     <string name="Favourite">Favourite</string>
     <string name="Setting">Setting</string>
+    <string name="Alert">Alert</string>
+    <string name="Celsius">Celsius</string>
+    <string name="Fahrenheit">Fahrenheit</string>
+    <string name="Kelvin">Kelvin</string>
+
+    <string name="Not_Found_Internet_Connection">Not Found Internet Connection</string>
+    <string name="try_again">try again</string>
+
+    <string name="API_KEY" translatable="false"></string>
+    <string name="API_KEY2" translatable="false"></string>
+    <string name="API_KEY3" translatable="false"></string>
+    <string name="MAP_KEY" translatable="false"></string>
 </resources>

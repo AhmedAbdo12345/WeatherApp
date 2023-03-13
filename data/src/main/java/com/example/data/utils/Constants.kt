@@ -9,7 +9,13 @@ class Constants {
         val emptyString=""
         val Language="Language"
         val Location="Location"
-
+        val CityName="City"
+        val Latitude="Latitude"
+        val Longitude="Longitude"
+        val Temperature="Temperature"
+        val Celsius="Celsius"
+        val Fahrenheit="Fahrenheit"
+        val Kelvin="Kelvin"
 
     }
 

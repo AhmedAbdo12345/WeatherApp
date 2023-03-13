@@ -21,6 +21,8 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+
     }
 
     buildTypes {
@@ -113,5 +115,7 @@ dependencies {
     //------------to get Places--------------------------------------------------
     implementation 'com.google.android.libraries.places:places:3.0.0'
 
+    //------------to Using Work Manger--------------------------------------------------
+    implementation 'androidx.work:work-runtime-ktx:2.8.0'
 
 }
