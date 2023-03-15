@@ -7,7 +7,7 @@ fun WeatherDBModel?.toDomainModel(): WeatherDB {
     return WeatherDB(
         this!!.id,
         this.city,
-        this.current ,
+        this.current!!,
         this.daily,
         this.hourly,
         this.lat,

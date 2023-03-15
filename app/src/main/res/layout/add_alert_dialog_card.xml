@@ -25,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_marginTop="2dp"
-            android:text="From"
+            android:text="@string/From"
             android:textStyle="bold"
             android:textColor="#7868e5"
             android:textSize="20sp" />
@@ -71,21 +71,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:layout_marginTop="2dp"
-                android:text="To"
+                android:text="@string/To"
                 android:textStyle="bold"
                 android:textColor="#7868e5"
                 android:textSize="20sp" />
 
-        <EditText
-            android:id="@+id/edt_end_time"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:hint="- -"
-            android:textSize="18dp"
-            android:focusable="false"
+            <EditText
+                android:id="@+id/edt_end_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableEnd="@drawable/time_black_icon"
+                android:focusable="false"
+                android:gravity="center"
+                android:hint="- -"
 
-            android:drawableEnd="@drawable/time_black_icon" />
+                android:minHeight="48dp"
+                android:textSize="18sp" />
 
         <EditText
             android:id="@+id/edt_end_date"
@@ -93,7 +94,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:hint="- -"
-            android:textSize="18dp"
+            android:textSize="18sp"
             android:focusable="false"
             android:drawableEnd="@drawable/calendar_today_black_icon" />
     </LinearLayout>
@@ -104,22 +105,21 @@
         android:id="@+id/radioGroupAlert"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="2">
+        android:orientation="vertical"
+        >
 
         <androidx.appcompat.widget.AppCompatRadioButton
             android:id="@+id/appCompatRadioBtn_alarm"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/Alert"
+            android:text="@string/Alarm"
             android:textSize="24sp"
-            android:layout_weight="0.75"/>
+            android:layout_weight="1"/>
 
         <androidx.appcompat.widget.AppCompatRadioButton
             android:id="@+id/appCompatRadioBtn_notification"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1.25"
             android:text="@string/Notifications"
             android:textSize="24sp" />
     </RadioGroup>
@@ -129,13 +129,13 @@
         android:id="@+id/btn_add_alert"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add"
+        android:text="@string/Save"
         android:textColor="@color/white" />
     <Button
         android:id="@+id/btn_cancle_alert"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Cancle"
+        android:text="@string/Cancle"
         android:textColor="@color/white" />
 </LinearLayout>
 

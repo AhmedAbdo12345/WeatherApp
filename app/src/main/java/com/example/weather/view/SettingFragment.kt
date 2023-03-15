@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +25,8 @@ import com.example.weather.databinding.FragmentSettingBinding
 
 class SettingFragment : Fragment() {
     lateinit var binding: FragmentSettingBinding
+
+    var tempUnit=""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -62,11 +65,12 @@ class SettingFragment : Fragment() {
             binding.radioGroupLanguage.check(binding.appCompatRadioBtnArabic.id)
         }
         //--------------------------------------------------------------------------------------
-        var lastTemperatureType= sharedPreference.getString(Constants.Temperature,Constants.Celsius)
-        when (lastTemperatureType) {
+         tempUnit= sharedPreference.getString(Constants.Temperature,Constants.Celsius).toString()
+        Log.i("zxcv", "temp: $tempUnit")
+        when (tempUnit) {
             Constants.Celsius -> binding.radioGroupTemperature.check(binding.appCompatRadioBtnCelsius.id)
             Constants.Kelvin -> binding.radioGroupTemperature.check(binding.appCompatRadioBtnKelvin.id)
-            Constants.Fahrenheit -> binding.radioGroupTemperature.check(binding.appCompatRadioBtnFahrenheit.id)
+           Constants.Fahrenheit -> binding.radioGroupTemperature.check(binding.appCompatRadioBtnFahrenheit.id)
         else -> { }
         }
         //--------------------------------------------------------------------------------------
@@ -118,7 +122,7 @@ class SettingFragment : Fragment() {
         }
 
         binding.radioGroupTemperature.setOnCheckedChangeListener { group, checkedId ->
-            var tempUnit :String =""
+
             when(checkedId){
                 R.id.appCompatRadioBtn_Celsius -> tempUnit=Constants.Celsius
                 R.id.appCompatRadioBtn_Kelvin -> tempUnit=Constants.Kelvin
@@ -127,12 +131,11 @@ class SettingFragment : Fragment() {
 
                 }
             }
-            editor.putString(Constants.Temperature, tempUnit)
+           editor.putString(Constants.Temperature, tempUnit)
             editor.commit()
 
-         /*   NavHostFragment.findNavController(this@SettingFragment)
-                .navigate(R.id.action_settingFragment_to_mainActivity)*/
-            Toast.makeText(requireContext(), tempUnit, Toast.LENGTH_SHORT).show()
+           NavHostFragment.findNavController(this@SettingFragment)
+                .navigate(R.id.action_settingFragment_to_homeFragment)
         }
     }
 }

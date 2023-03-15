@@ -13,7 +13,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:scaleType="fitXY"
-        android:src="@drawable/background"
+        android:background="@drawable/background4"
         />
 
 

@@ -10,7 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/background"
+        android:background="@drawable/background4"
         android:gravity="center"
         android:orientation="vertical"
         tools:context=".view.SettingFragment">
@@ -277,7 +277,8 @@
             android:layout_margin="5dp"
             android:backgroundTint="@color/color_items"
             app:cardElevation="50dp"
-            app:cardCornerRadius="10dp">
+            app:cardCornerRadius="10dp"
+            android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="match_parent"

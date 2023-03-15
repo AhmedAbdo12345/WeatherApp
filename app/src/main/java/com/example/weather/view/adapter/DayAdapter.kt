@@ -5,10 +5,12 @@ import android.graphics.drawable.Icon
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.data.utils.Constants
 import com.example.domain.entity.ModelApi.WeatherResponse
 import com.example.weather.R
 import com.example.weather.databinding.RvDayBinding
 import com.example.weather.utils.ApproximateTemp
+import com.example.weather.utils.ConvertUnits
 import com.example.weather.utils.IconsApp
 import java.math.RoundingMode
 import java.text.DecimalFormat
@@ -19,7 +21,7 @@ import java.time.format.DateTimeFormatter
 import java.util.*
 
 
-class DayAdapter(var weatherResponse: WeatherResponse?) :
+class DayAdapter(var weatherResponse: WeatherResponse?,var tempUnit:String) :
     RecyclerView.Adapter<DayAdapter.DailyViewHolder>() {
 
     lateinit var binding: RvDayBinding
@@ -47,9 +49,9 @@ class DayAdapter(var weatherResponse: WeatherResponse?) :
             //   holder.binding.tvTempDay.text=(((weatherResponse!!.daily[position].temp.day)-273.15).toString())
 
             //---------this method to convert number like 19.7875789621245  to 19.79 ---------------------------------
-            var approximateTemp = ApproximateTemp()
-            holder.binding.tvTempDay.text =
-                approximateTemp((weatherResponse!!.daily[position].temp.day) - 273.15) + "\u00B0"
+
+            holder.binding.tvTempDay.text = ConvertUnits.convertTemp(weatherResponse!!.daily[position].temp.day, tempUnit = tempUnit)
+
 
 
         }
@@ -66,11 +68,5 @@ class DayAdapter(var weatherResponse: WeatherResponse?) :
         return cityTxtFormat.format(cityTxtData)
     }
 
-    //---------this method to convert number like 19.7875789621245  to 19.79 ---------------------------------
-/*    fun roundTemp(num: Double): String {
-        val df = DecimalFormat("#.##")
-        df.roundingMode = RoundingMode.CEILING
 
-        return df.format(num)
-    }*/
 }

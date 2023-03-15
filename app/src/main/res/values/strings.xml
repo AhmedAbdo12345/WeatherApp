@@ -26,16 +26,35 @@
     <string name="Home">Home</string>
     <string name="Favourite">Favourite</string>
     <string name="Setting">Setting</string>
-    <string name="Alert">Alert</string>
+    <string name="Alarm">Alarm</string>
     <string name="Celsius">Celsius</string>
     <string name="Fahrenheit">Fahrenheit</string>
     <string name="Kelvin">Kelvin</string>
-
+    <string name="From">From</string>
+    <string name="To">To</string>
+    <string name="Save">Save</string>
+    <string name="Cancle">Cancle</string>
     <string name="Not_Found_Internet_Connection">Not Found Internet Connection</string>
     <string name="try_again">try again</string>
 
-    <string name="API_KEY" translatable="false"></string>
-    <string name="API_KEY2" translatable="false"></string>
-    <string name="API_KEY3" translatable="false"></string>
-    <string name="MAP_KEY" translatable="false"></string>
+    <string name="Alert">Alert</string>
+    <string name="API_KEY" translatable="false">471513ea69403129f79bbd3675cfccf3</string>
+    <string name="API_KEY2" translatable="false">05a9a9b5ac16ee922e76bd1ca539e793</string>
+    <string name="API_KEY3" translatable="false">375d11598481406538e244d548560243</string>
+    <string name="MAP_KEY" translatable="false">AIzaSyAbuHdF1hB_ddtCtgEZ7iE3cDqXk4zpVJU</string>
+
+    <string name="Delete_Fav_Location">Delete Location From Favourite</string>
+    <string name="Dialog_Delete_Fav_Message">Do you want to Delete this Location from Favourite ?</string>
+    <string name="Delete">Delete</string>
+    <string name="Save_In_Favourite">Save in Favourite</string>
+    <string name="Dialog_Save_Fav_Message">Do you want to save this Location in Favourite</string>
+    <string name="Save_Successfull">This location Saved Successful</string>
+    <string name="Save_Location">Save this Location</string>
+    <string name="Dialog_Save_Map_Message">Do you want to save this Location </string>
+    <string name="Delete_Alert">Delete Alert</string>
+    <string name="Dialog_Delete_Alert_Message">Do you want to Delete this Alert ?</string>
+
+    <string name="Permission_Required">Permission Required</string>
+    <string name="Warning">Warning</string>
+    <string name="Ok">Ok</string>
 </resources>

@@ -9,6 +9,7 @@ import com.example.domain.entity.ModelApi.WeatherResponse
 import com.example.weather.R
 import com.example.weather.databinding.RvHourTempBinding
 import com.example.weather.utils.ApproximateTemp
+import com.example.weather.utils.ConvertUnits
 import com.example.weather.utils.IconsApp
 import java.time.Instant
 import java.time.ZoneId
@@ -16,7 +17,7 @@ import java.time.format.DateTimeFormatter
 import java.util.*
 
 
-class HourAdapter(var weatherResponse: WeatherResponse?) :
+class HourAdapter(var weatherResponse: WeatherResponse?,var tempUnit:String) :
     RecyclerView.Adapter<HourAdapter.HourlyViewHolder>() {
 
     lateinit var binding: RvHourTempBinding
@@ -33,12 +34,11 @@ class HourAdapter(var weatherResponse: WeatherResponse?) :
     }
 
     override fun onBindViewHolder(holder: HourlyViewHolder, position: Int) {
-        var approximateTemp = ApproximateTemp()
         if (weatherResponse != null) {
             holder.binding.tvHour.text =
                 getCurrentTime(weatherResponse!!.hourly[position].dt, weatherResponse!!.timezone)
             holder.binding.tvTemp.text =
-                approximateTemp((weatherResponse!!.hourly[position].temp) - 273.15) + "\u00B0"
+                ConvertUnits.convertTemp(weatherResponse!!.hourly[position].temp, tempUnit = tempUnit)
             var iconForHourName =
                 weatherResponse?.hourly?.get(position)?.weather?.get(0)?.icon.toString()
 

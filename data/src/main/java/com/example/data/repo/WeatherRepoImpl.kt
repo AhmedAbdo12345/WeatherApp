@@ -5,7 +5,7 @@ import com.example.domain.entity.ModelApi.WeatherResponse
 import com.example.domain.repo.WeatherRepo
 import java.sql.Timestamp
 
-class WeatherRepoImpl(private val apiService: ApiService):WeatherRepo {
+class WeatherRepoImpl constructor(private val apiService: ApiService):WeatherRepo {
     override suspend fun getWeatherFromApi(
         lat: Double,
         lon: Double,

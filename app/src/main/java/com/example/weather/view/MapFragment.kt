@@ -123,19 +123,19 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     fun displayAlertDialogToSaveFavourite(model: FavouriteModel) {
         if (model != null) {
             var alert: AlertDialog.Builder = AlertDialog.Builder(requireContext())
-            alert.setTitle("Save in Favourite")
-            alert.setMessage("Do you want to save ${model.city} in Favourite")
-            alert.setPositiveButton("Save") { _: DialogInterface, _: Int ->
+            alert.setTitle(getString(R.string.Save_In_Favourite))
+            alert.setMessage(getString(R.string.Dialog_Save_Fav_Message))
+            alert.setPositiveButton(getString(R.string.Save)) { _: DialogInterface, _: Int ->
 
                 favouriteViewModel.insertFavourite(model)
                 Toast.makeText(
                     requireContext(),
-                    "This location Saved Successfull",
+                    getString(R.string.Save_Successfull),
                     Toast.LENGTH_SHORT
                 ).show()
                 NavHostFragment.findNavController(this@MapFragment).navigate(R.id.action_mapFragment_to_favFragment)
             }
-            alert.setNegativeButton("Cancle") { _: DialogInterface, _: Int ->
+            alert.setNegativeButton(getString(R.string.Cancle)) { _: DialogInterface, _: Int ->
             }
 
             val dialog = alert.create()
@@ -148,9 +148,9 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     fun displayAlertDialogToSaveCurrentLocation(model: FavouriteModel) {
         if (model != null) {
             var alert: AlertDialog.Builder = AlertDialog.Builder(requireContext())
-            alert.setTitle("Save this Location")
-            alert.setMessage("Do you want to save ${model.city} ")
-            alert.setPositiveButton("Save") { _: DialogInterface, _: Int ->
+            alert.setTitle(getString(R.string.Save_Location))
+            alert.setMessage(getString(R.string.Dialog_Save_Map_Message))
+            alert.setPositiveButton(getString(R.string.Save)) { _: DialogInterface, _: Int ->
                 editor.putString(Constants.Location, "Map")
                 editor.putString(Constants.CityName, model.city)
                 editor.putString(Constants.Latitude, (model.latitude).toString())
@@ -160,7 +160,7 @@ class MapFragment : Fragment(), OnMapReadyCallback {
                 NavHostFragment.findNavController(this@MapFragment).navigate(R.id.action_mapFragment_to_homeFragment)
 
             }
-            alert.setNegativeButton("Cancle") { _: DialogInterface, _: Int ->
+            alert.setNegativeButton(getString(R.string.Cancle)) { _: DialogInterface, _: Int ->
             }
 
             val dialog = alert.create()

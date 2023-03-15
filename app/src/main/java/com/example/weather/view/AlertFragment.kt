@@ -5,6 +5,7 @@ import android.app.DatePickerDialog
 import android.app.Dialog
 import android.app.TimePickerDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -23,17 +24,28 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.AppCompatRadioButton
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.NavHostFragment
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.work.*
+import com.example.data.database.alert.AlertModel
+import com.example.data.database.fav.FavouriteModel
 import com.example.weather.R
-import com.example.weather.alert.AlertModel
+import com.example.weather.alert.DateAlertModel
 import com.example.weather.alert.AlertWorker
 import com.example.weather.databinding.FragmentAlertBinding
+import com.example.weather.view.adapter.AlertAdapter
+import com.example.weather.viewmodel.AlertViewModel
+import com.example.weather.viewmodel.WeatherViewModel
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.TimeUnit
 
 
-class AlertFragment : Fragment() {
+class AlertFragment : Fragment(),AlertAdapter.ListItemClickListenerDelete {
     var yearStart = 0
     var monthStart = 0
     var dayStart = 0
@@ -55,6 +67,9 @@ class AlertFragment : Fragment() {
     lateinit var dateStart: EditText
     lateinit var dateEnd: EditText
     lateinit var binding: FragmentAlertBinding
+
+    private val viewmodel: AlertViewModel by activityViewModels()
+ var alertAdapter=AlertAdapter(this@AlertFragment)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -81,6 +96,7 @@ class AlertFragment : Fragment() {
         if (!Settings.canDrawOverlays(view!!.context)) {
             askForDrawOverlaysPermission()
         }
+        dislayAlertRecyclerView()
     }
 
     fun displayAlertInfo() {
@@ -88,6 +104,7 @@ class AlertFragment : Fragment() {
         dialogInfo.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialogInfo.setCancelable(false)
         dialogInfo.setContentView(R.layout.add_alert_dialog_card)
+        dialogInfo.getWindow()!!.setLayout(800, 1500)
         dialogInfo.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         var cardviewFrom: CardView = dialogInfo.findViewById(R.id.cardview_alert_from)
@@ -115,6 +132,14 @@ class AlertFragment : Fragment() {
             createDatePickerDialog("TO")
 
         }
+        timeStart.setOnClickListener() {
+            createDatePickerDialog("From")
+        }
+        timeEnd.setOnClickListener() {
+            createDatePickerDialog("TO")
+
+        }
+
         radioBtnAlerm.setOnClickListener() {
             typeAlert = "Alerm"
 
@@ -124,10 +149,10 @@ class AlertFragment : Fragment() {
 
         }
         buttonAdd.setOnClickListener() {
-            var alertModelStart =
-                AlertModel(yearStart, monthStart, dayStart, hourStart, minutsStart)
-            var alertModelEnd = AlertModel(yearEnd, monthEnd, dayEnd, hourEnd, minutsEnd)
-            alertNotificationOrAlarm(alertModelStart, alertModelEnd, typeAlert)
+            var dateAlerModelStart =
+                DateAlertModel(yearStart, monthStart, dayStart, hourStart, minutsStart)
+            var dateAlerModelEnd = DateAlertModel(yearEnd, monthEnd, dayEnd, hourEnd, minutsEnd)
+            alertNotificationOrAlarm(dateAlerModelStart, dateAlerModelEnd, typeAlert)
             Toast.makeText(requireContext(), "Add", Toast.LENGTH_SHORT).show()
 
             dialogInfo.dismiss()
@@ -213,7 +238,9 @@ class AlertFragment : Fragment() {
 
     }
 
-    fun alertNotificationOrAlarm(start: AlertModel, end: AlertModel, type: String) {
+    fun alertNotificationOrAlarm(start: DateAlertModel, end: DateAlertModel, type: String) {
+        if(start !=null && end !=null ){
+
         var startDate = Calendar.getInstance()
         startDate.set(start.year, start.month, start.day, start.hour, start.minute)
 
@@ -235,13 +262,21 @@ class AlertFragment : Fragment() {
               .setRequiresDeviceIdle(true)
               .build()*/
 
-        val periodicWorkRequest = OneTimeWorkRequestBuilder<AlertWorker>()
+        val fireAlertConstraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .build()
+        val oneTimeWorkRequest = OneTimeWorkRequestBuilder<AlertWorker>()
             .setInitialDelay(diff, TimeUnit.SECONDS)
             .setInputData(inputData)
+            .setConstraints(fireAlertConstraints)
             .build()
-        WorkManager.getInstance(requireContext().applicationContext).enqueue(periodicWorkRequest)
 
-        //   WorkManager.getInstance().cancelWorkById(periodicWorkRequest.id)
+        var alertModel=AlertModel((oneTimeWorkRequest.id).toString(),timeStart.text.toString(),timeEnd.text.toString(),dateStart.text.toString(),dateEnd.text.toString())
+        WorkManager.getInstance(requireContext().applicationContext).enqueue(oneTimeWorkRequest)
+        viewmodel.insertAlertModel(alertModel)
+
+        }
+        //   WorkManager.getInstance().cancelWorkById(oneTimeWorkRequest.id)
 
     }
 
@@ -267,9 +302,9 @@ class AlertFragment : Fragment() {
                     .show()
             } else {
                 AlertDialog.Builder(view!!.context)
-                    .setTitle("warning")
-                    .setMessage("error_msg_permission_required")
-                    .setPositiveButton("ok") { _, _ ->
+                    .setTitle(getString(R.string.Warning))
+                    .setMessage(getString(R.string.Permission_Required))
+                    .setPositiveButton(getString(R.string.Ok)) { _, _ ->
                         val permissionIntent = Intent(
                             Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
                             Uri.parse("package:" + view!!.context.packageName)
@@ -285,4 +320,43 @@ class AlertFragment : Fragment() {
     private val runtimePermissionResultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { }
 
+    fun dislayAlertRecyclerView(){
+        viewmodel.getAlertFromRoom()
+        lifecycleScope.launch {
+            viewmodel.allAlert.collect(){
+
+
+                alertAdapter.submitList(it)
+                binding.rvAlert.apply {
+                    adapter = alertAdapter
+                    setHasFixedSize(true)
+
+                    layoutManager = GridLayoutManager(context, 1).apply {
+                        orientation = RecyclerView.VERTICAL
+                    }
+                }
+            }
+        }
+    }
+
+    override fun onClickAlertDelete(alertModel: AlertModel) {
+        displayDeleteAlertDialog(alertModel)
+
+    }
+    fun displayDeleteAlertDialog(alertModel: AlertModel){
+        var alert:AlertDialog.Builder=AlertDialog.Builder(requireContext())
+        alert.setTitle(getString(R.string.Delete_Alert))
+        alert.setMessage(getString(R.string.Dialog_Delete_Alert_Message))
+        alert.setPositiveButton(getString(R.string.Delete)){ _: DialogInterface, _: Int ->
+            viewmodel.deleteAlertModel(alertModel)
+            WorkManager.getInstance().cancelWorkById(UUID.fromString(alertModel.id))
+            NavHostFragment.findNavController(this@AlertFragment).navigate(R.id.action_alertFragment_self)
+
+        }
+        alert.setNegativeButton(getString(R.string.Cancle)){ _: DialogInterface, _: Int ->
+
+        }
+        var dialog=alert.create()
+        dialog.show()
+    }
 }

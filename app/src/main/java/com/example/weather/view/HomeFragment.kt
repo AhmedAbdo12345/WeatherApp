@@ -8,6 +8,7 @@ import android.content.pm.PackageManager
 import android.content.res.Configuration
 import android.location.Address
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -46,12 +47,14 @@ class HomeFragment : Fragment(), CurrentLocationStatue {
     lateinit var sharedPreference: SharedPreferences
     lateinit var editor: SharedPreferences.Editor
     var currentLanguage: String = "en"
+    var tempUnit=""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         sharedPreference =
             requireActivity().getSharedPreferences("PREFERENCE_NAME", Context.MODE_PRIVATE)
         editor = sharedPreference.edit()
+
+
         currentLanguage = sharedPreference.getString(Constants.Language, "en").toString()
         checkLanguage(currentLanguage)
 
@@ -71,7 +74,8 @@ class HomeFragment : Fragment(), CurrentLocationStatue {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
+        tempUnit= sharedPreference.getString(Constants.Temperature,Constants.Celsius).toString()
+        Log.i("zxcv", "tem123: $tempUnit")
         var locationType = sharedPreference.getString(Constants.Location, "GPS")
 
         var model = HomeFragmentArgs.fromBundle(requireArguments()).favModel
@@ -154,7 +158,6 @@ class HomeFragment : Fragment(), CurrentLocationStatue {
 
                 when (it) {
                     is ApiStatus.Success -> {
-
                         binding.nestedScrollView.visibility = View.VISIBLE
                         binding.progressBar.visibility = View.GONE
 
@@ -226,7 +229,7 @@ class HomeFragment : Fragment(), CurrentLocationStatue {
     }
 
     fun displayHourlyRecycleView(it: WeatherResponse) {
-        var hourlyAdapter = HourAdapter(it)
+        var hourlyAdapter = HourAdapter(it,tempUnit)
         binding.rvHour.apply {
             adapter = hourlyAdapter
             setHasFixedSize(true)
@@ -237,7 +240,7 @@ class HomeFragment : Fragment(), CurrentLocationStatue {
     }
 
     fun displayDailyRecycleView(it: WeatherResponse) {
-        var dailyAdapter = DayAdapter(it)
+        var dailyAdapter = DayAdapter(it,tempUnit)
         binding.rvDay.apply {
             adapter = dailyAdapter
             setHasFixedSize(true)
@@ -251,8 +254,8 @@ class HomeFragment : Fragment(), CurrentLocationStatue {
         binding.tvCity.text = city
         binding.tvDate.text = getDateTime(wr.current.dt)
         IconsApp.getSuitableIcon(wr.current.weather[0].icon, binding.imgStatusWeather)
-        var approximateTemp = ApproximateTemp()
-        binding.tvCurrentTemp.text = approximateTemp((wr.current.temp).minus(273.15)) + "\u00B0"
+        binding.tvCurrentTemp.text = ConvertUnits.convertTemp(wr.current.temp, tempUnit = tempUnit)
+
         binding.tvDescription.text = wr.current.weather.get(0).description
         //---------------------------------------------------------------------------------------
 
@@ -264,7 +267,9 @@ class HomeFragment : Fragment(), CurrentLocationStatue {
         binding.tvUvi.text = wr.current.uvi.toString()
         binding.tvVisibility.text = wr.current.visibility.toString() + " m"
 
-        binding.tvTemperature.text = (wr.current.temp).minus(273.15).toString()
+        binding.tvTemperature.text = ConvertUnits.convertTemp(wr.current.temp, tempUnit = tempUnit)
+
+
         binding.tvSunRise.text = getDateTime(wr.current.sunrise, SimpleDateFormat("hh:mm aa"))
 
         binding.tvSunSet.text = getDateTime(wr.current.sunset, SimpleDateFormat("hh:mm aa"))

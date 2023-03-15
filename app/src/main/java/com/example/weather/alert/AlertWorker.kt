@@ -25,6 +25,7 @@ class AlertWorker(val context: Context, workerParams: WorkerParameters) :
     CoroutineWorker(context, workerParams) {
    var  sharedPreference =context.getSharedPreferences("PREFERENCE_NAME", Context.MODE_PRIVATE)
     var approximateTemp= ApproximateTemp()
+
     @RequiresApi(Build.VERSION_CODES.M)
     override suspend fun doWork(): Result {
 
@@ -39,7 +40,8 @@ class AlertWorker(val context: Context, workerParams: WorkerParameters) :
 
             var response = getWeatherStatueForAlert(lat?.toDouble() ?: 0.0,
                 lng?.toDouble() ?: 0.0,language)
-            var contentNotification=(response.current.weather.get(0).description)+"  "+approximateTemp((response.current.temp).minus(273.15))+"\u00B0"
+            var contentNotification=(response.current?.weather?.get(0)?.description)+"  "+approximateTemp(
+                (response.current!!.temp)!!.minus(273.15))+"\u00B0"
 
             NotificationHelper(context).createNotification(
                 title = city,

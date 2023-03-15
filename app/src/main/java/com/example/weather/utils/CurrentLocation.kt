@@ -64,14 +64,19 @@ class CurrentLocation(
                 LocationServices.getFusedLocationProviderClient(activity).lastLocation.addOnCompleteListener { task ->
                     val location: Location? = task.result
                     if (location != null) {
-                        val geocoder = Geocoder(context, Locale(language))
-                        var list = geocoder.getFromLocation(
-                            location.latitude,
-                            location.longitude,
-                            1
-                        ) as List<Address>
-                        currentLocationStatue.success(list)
-                        Log.i("zxcv", "getLocation3555: ${list}")
+                        try {
+                            val geocoder = Geocoder(context, Locale(language))
+                            var list = geocoder.getFromLocation(
+                                location.latitude,
+                                location.longitude,
+                                1
+                            ) as List<Address>
+                            currentLocationStatue.success(list)
+                            Log.i("zxcv", "getLocation3555: ${list}")
+                        }catch (e :Exception){
+                            Log.i("zxcv", "getLocation: "+e.message)
+                        }
+
                     }
                 }
             } else {

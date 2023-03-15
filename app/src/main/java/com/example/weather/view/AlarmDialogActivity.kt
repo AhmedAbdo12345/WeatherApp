@@ -50,7 +50,9 @@ lateinit var binding:ActivityAlarmDialogBinding
         window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         setFinishOnTouchOutside(false)
 
-
+binding.btnCancle.setOnClickListener(){
+    this.finish()
+}
     }
 
     private fun startSound() {

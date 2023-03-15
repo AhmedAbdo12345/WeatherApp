@@ -62,6 +62,9 @@
         <action
             android:id="@+id/action_favFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_favFragment_self"
+            app:destination="@id/favFragment" />
     </fragment>
     <activity
         android:id="@+id/mainActivity"
@@ -71,5 +74,9 @@
         android:id="@+id/alertFragment"
         android:name="com.example.weather.view.AlertFragment"
         android:label="@string/Alert"
-        tools:layout="@layout/fragment_alert" />
+        tools:layout="@layout/fragment_alert" >
+        <action
+            android:id="@+id/action_alertFragment_self"
+            app:destination="@id/alertFragment" />
+    </fragment>
 </navigation>

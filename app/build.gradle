@@ -52,6 +52,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
     implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
+    implementation 'androidx.test:runner:1.5.2'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
@@ -117,5 +118,31 @@ dependencies {
 
     //------------to Using Work Manger--------------------------------------------------
     implementation 'androidx.work:work-runtime-ktx:2.8.0'
+    //----------------------
+    testImplementation "androidx.test:core-ktx:1.5.0"
+    testImplementation "androidx.test.ext:junit-ktx:1.1.5"
+    testImplementation "androidx.arch.core:core-testing:2.2.0"
+    testImplementation "org.robolectric:robolectric:4.8"
+    testImplementation "org.hamcrest:hamcrest:2.2"
+    testImplementation "org.hamcrest:hamcrest-library:2.2"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4"
+
+    kaptTest 'com.google.dagger:hilt-android-compiler:2.40.5'
+
+    // Hilt testing dependency
+    androidTestImplementation "com.google.dagger:hilt-android-testing:2.40.5"
+    // Make Hilt generate code in the androidTest folder
+    kaptAndroidTest "com.google.dagger:hilt-android-compiler:2.40.5"
+
+
+
+    androidTestImplementation "androidx.arch.core:core-testing:2.2.0"
+    androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4"
+
+
+    kaptTest 'com.google.dagger:dagger-compiler:2.41'
+    testImplementation "io.mockk:mockk:1.10.5"
+
+    testImplementation "com.google.truth:truth:1.0.1"
 
 }

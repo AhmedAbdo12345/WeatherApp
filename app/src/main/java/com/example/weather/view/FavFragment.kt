@@ -85,16 +85,18 @@ class FavFragment : Fragment(),FavAdapter.ListItemClickListener,FavAdapter.ListI
 
     fun displayDeleteAlertDialog(model: FavouriteModel){
         var alert:AlertDialog.Builder=AlertDialog.Builder(requireContext())
-        alert.setTitle("Delete Item")
-        alert.setMessage("Do you want to Delete this Place from Favourite ?")
-        alert.setPositiveButton("Delete"){ _: DialogInterface, _: Int ->
+        alert.setTitle(getString(R.string.Delete_Fav_Location))
+        alert.setMessage(getString(R.string.Dialog_Delete_Fav_Message))
+        alert.setPositiveButton(getString(R.string.Delete)){ _: DialogInterface, _: Int ->
             viewmodel.deleteFavourite(model)
 
             // --we using  notifyDataSetChanged in old way to update Adapter of recycleview ----
             //favAdapter.notifyDataSetChanged()
+            NavHostFragment.findNavController(this@FavFragment).navigate(R.id.action_favFragment_self)
+
 
         }
-        alert.setNegativeButton("Cancle"){ _: DialogInterface, _: Int ->
+        alert.setNegativeButton(getString(R.string.Cancle)){ _: DialogInterface, _: Int ->
 
         }
         var dialog=alert.create()

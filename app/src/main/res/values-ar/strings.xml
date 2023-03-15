@@ -24,11 +24,35 @@
     <string name="Home">الرئيسية  </string>
     <string name="Favourite"> المفضلة </string>
     <string name="Setting">الاعدادات </string>
-    <string name="Alert">Alert</string>
+    <string name="Alarm">المنبة</string>
 
     <string name="Celsius">والسيلسيوس </string>
     <string name="Fahrenheit">والفهرنهايت</string>
     <string name="Kelvin">الكلفن </string>
+
+    <string name="From">من</string>
+    <string name="To">إلى</string>
+
+    <string name="Save">حفظ</string>
+    <string name="Cancle">إلغاء</string>
+    <string name="Alert">المنبه</string>
     <string name="Not_Found_Internet_Connection">لم يتم العثور على اتصال بالإنترنت</string>
     <string name="try_again">حاول مرة أخري</string>
+
+
+
+    <string name="Delete_Fav_Location">حذف الموقع من المفضله</string>
+    <string name="Dialog_Delete_Fav_Message">هل تريد حذف هذا الموقع من المفضله ؟</string>
+    <string name="Delete">حذف</string>
+    <string name="Save_In_Favourite">حفظ فى المفضله</string>
+    <string name="Dialog_Save_Fav_Message">هل تريد حفظ هذا الموقع فى المفضله</string>
+    <string name="Save_Successfull">تم حفظ هذاالموقع بنجاح</string>
+    <string name="Save_Location">حفظ الموقع</string>
+    <string name="Dialog_Save_Map_Message">هل تربد حفظ هذا الموقع  </string>
+    <string name="Delete_Alert">حذف المنبه </string>
+    <string name="Dialog_Delete_Alert_Message">هل تريد حذف هذا المنبه ؟</string>
+
+    <string name="Permission_Required">الإذن مطلوب</string>
+    <string name="Warning">تنبيه</string>
+    <string name="Ok">موافق</string>
 </resources>
