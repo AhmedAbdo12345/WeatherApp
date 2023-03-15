@@ -22,9 +22,11 @@ And you can add a specific time so that you will receive a notification or an al
 - State Flow
 - Dependency Injection Using  Dagger 2
 - Apply Onion Clean Architecture
+- WorkManager
 - Mapper 
 - Reflection 
 - Retrofit
+- Room DB
 - Google Map 
 - Invoke Operator
 - Unit Test
