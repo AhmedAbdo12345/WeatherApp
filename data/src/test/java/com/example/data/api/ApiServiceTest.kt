@@ -2,6 +2,7 @@ package com.example.data.api
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.example.data.BuildConfig
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.*
@@ -38,7 +39,7 @@ class ApiServiceTest {
         val lat=27.55
         val lng=62.58
         val language="en"
-        val apiKey="471513ea69403129f79bbd3675cfccf3"
+        val apiKey=BuildConfig.ApiKey
         //   When
         apiService?.getWeather(lat,lng,language,apiKey)
 

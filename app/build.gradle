@@ -8,6 +8,9 @@ plugins {
 
 
 }
+def API_KEY ='"' +ApiKey+'"' ?: '"Api key Not Found'
+def MAP_KEY ='"' +MapKey+'"' ?: '"Map key Not Found'
+def STRING = 'String'
 
 android {
     namespace 'com.example.weather'
@@ -21,8 +24,12 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+      //  testInstrumentationRunner "com.example.weather.HiltTestRunner"
+        each {type ->
+            type.buildConfigField STRING,'ApiKey' ,API_KEY
+            type.buildConfigField STRING,'MapKey' ,MAP_KEY
 
-
+        }
     }
 
     buildTypes {
@@ -42,6 +49,7 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
 }
 
 dependencies {
@@ -61,10 +69,6 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment:2.5.3"
     implementation "androidx.navigation:navigation-ui:2.5.3"
     //---------------------------------------------------
-    //-----------------dagger hilt 2----------------------------------------
-    implementation "com.google.dagger:hilt-android:2.40.5"
-    kapt "com.google.dagger:hilt-android-compiler:2.40.5"
-    //----------------------------------------------------------------------
     //----------------Coroutines Dependencies-------------------------------
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4"
@@ -119,6 +123,11 @@ dependencies {
     //------------to Using Work Manger--------------------------------------------------
     implementation 'androidx.work:work-runtime-ktx:2.8.0'
     //----------------------
+    //-----------------dagger hilt 2----------------------------------------
+    implementation "com.google.dagger:hilt-android:2.42"
+    kapt "com.google.dagger:hilt-android-compiler:2.42"
+    //----------------------------------------------------------------------
+
     testImplementation "androidx.test:core-ktx:1.5.0"
     testImplementation "androidx.test.ext:junit-ktx:1.1.5"
     testImplementation "androidx.arch.core:core-testing:2.2.0"
@@ -127,22 +136,27 @@ dependencies {
     testImplementation "org.hamcrest:hamcrest-library:2.2"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4"
 
-    kaptTest 'com.google.dagger:hilt-android-compiler:2.40.5'
-
-    // Hilt testing dependency
-    androidTestImplementation "com.google.dagger:hilt-android-testing:2.40.5"
-    // Make Hilt generate code in the androidTest folder
-    kaptAndroidTest "com.google.dagger:hilt-android-compiler:2.40.5"
-
-
+    testImplementation "io.mockk:mockk:1.10.5"
+    testImplementation "com.google.truth:truth:1.0.1"
 
     androidTestImplementation "androidx.arch.core:core-testing:2.2.0"
     androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4"
 
 
-    kaptTest 'com.google.dagger:dagger-compiler:2.41'
-    testImplementation "io.mockk:mockk:1.10.5"
 
-    testImplementation "com.google.truth:truth:1.0.1"
+
+    kaptTest 'com.google.dagger:dagger-compiler:2.42'
+    kaptTest 'com.google.dagger:hilt-android-compiler:2.42'
+    // Make Hilt generate code in the androidTest folder
+    kaptAndroidTest "com.google.dagger:hilt-android-compiler:2.42"
+
+    // Hilt testing dependency
+    androidTestImplementation "com.google.dagger:hilt-android-testing:2.42"
+
+    androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4"
+    androidTestImplementation "com.google.truth:truth:1.0.1"
+    androidTestImplementation "org.mockito:mockito-core:3.4.6"
+    androidTestImplementation 'com.google.dagger:hilt-android-testing:2.42'
+
 
 }

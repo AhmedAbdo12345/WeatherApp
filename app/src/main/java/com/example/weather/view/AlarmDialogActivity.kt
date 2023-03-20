@@ -14,10 +14,12 @@ import androidx.databinding.DataBindingUtil.setContentView
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.data.utils.Constants
+import com.example.weather.BuildConfig
 import com.example.weather.R
 import com.example.weather.databinding.ActivityAlarmDialogBinding
 import com.example.weather.utils.ApiStatus
 import com.example.weather.utils.ApproximateTemp
+import com.example.weather.utils.ConvertUnits
 import com.example.weather.utils.IconsApp
 import com.example.weather.viewmodel.WeatherViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,7 +30,7 @@ import org.w3c.dom.Text
 class AlarmDialogActivity : AppCompatActivity() {
 
     var mMediaPlayer: MediaPlayer? = null
-
+    var tempUnit=Constants.Celsius
 
 lateinit var binding:ActivityAlarmDialogBinding
     private val viewmodel: WeatherViewModel by viewModels()
@@ -45,30 +47,30 @@ lateinit var binding:ActivityAlarmDialogBinding
         var lat= sharedPreference.getString(Constants.Latitude,"0.0")
         var lng= sharedPreference.getString(Constants.Longitude,"0.0")
         var language= sharedPreference.getString(Constants.Language, "en").toString()
-
+         tempUnit= sharedPreference.getString(Constants.Temperature, "en").toString()
         getDataFromNetwork(lat?.toDouble() ?: 0.0, lng?.toDouble() ?: 0.0,language,city)
         window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         setFinishOnTouchOutside(false)
 
+
 binding.btnCancle.setOnClickListener(){
+    mMediaPlayer!!.stop()
     this.finish()
 }
+        playSound()
     }
 
-    private fun startSound() {
-        if (mMediaPlayer == null) { //mMediaPkayer is your variable
-            //mMediaPlayer = MediaPlayer.create(this, R.raw.weather_sound2) //raw is the folder where you have the audio files or sounds, water is the audio file (is a example right)
-            mMediaPlayer!!.isLooping = true //to repeat again n again
-            mMediaPlayer!!.start() //to start the sound
+    private fun playSound() {
+        if (mMediaPlayer == null) {
+            mMediaPlayer = MediaPlayer.create(this, R.raw.sound_alarm_weather)
+            mMediaPlayer!!.isLooping = true
+            mMediaPlayer!!.start()
         }
     }
 
-    private fun handleUI() {
-
-    }
 
     fun getDataFromNetwork(lat: Double, lon: Double,lang:String, city: String) {
-        viewmodel.getWeather(lat, lon,lang, getString(R.string.API_KEY2))
+        viewmodel.getWeather(lat, lon,lang, BuildConfig.ApiKey)
 
         lifecycleScope.launch {
             viewmodel.weather.collect {
@@ -78,6 +80,7 @@ binding.btnCancle.setOnClickListener(){
                         binding.tvAlarmCity.text=city
                         binding.tvAlarmDescription.text=it.weatherResponse.current.weather.get(0).description
                         IconsApp.getSuitableIcon(it.weatherResponse.current.weather[0].icon, binding.imgAlarmIcon)
+                        binding.tvAlarmTemp.text= ConvertUnits.convertTemp(it.weatherResponse.current.temp,tempUnit)
                     }
                     is ApiStatus.Loading -> {
 

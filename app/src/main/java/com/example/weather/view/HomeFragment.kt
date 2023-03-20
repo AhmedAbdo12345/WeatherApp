@@ -1,7 +1,6 @@
 package com.example.weather.view
 
 
-import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
@@ -12,8 +11,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
@@ -23,6 +22,7 @@ import com.example.data.database.weather.WeatherDBModel
 import com.example.data.utils.Constants
 import com.example.domain.entity.ModelApi.Minutely
 import com.example.domain.entity.ModelApi.WeatherResponse
+import com.example.weather.BuildConfig
 import com.example.weather.R
 import com.example.weather.databinding.FragmentHomeBinding
 import com.example.weather.utils.*
@@ -58,6 +58,7 @@ class HomeFragment : Fragment(), CurrentLocationStatue {
         currentLanguage = sharedPreference.getString(Constants.Language, "en").toString()
         checkLanguage(currentLanguage)
 
+        (activity as? AppCompatActivity)?.supportActionBar?.title = getString(R.string.app_name)
     }
 
     override fun onCreateView(
@@ -122,21 +123,26 @@ class HomeFragment : Fragment(), CurrentLocationStatue {
     //---------------------------------------------------------------
 
     //---------------------------------------------------------------
-    override fun onRequestPermissionsResult(
+   override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == permissionId) {
+            Log.i("zxcv", "onRequestPermissionsResult:33333333 ")
+
             if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
                 currentLocation.getLocation()
+                Log.i("zxcv", "onRequestPermissionsResult:22222 ")
 
+            }else{
+                Log.i("zxcv", "onRequestPermissionsResult:111111111111 ")
             }
         }
     }
 
-    override fun success(list: List<Address>) {
+            override fun success(list: List<Address>) {
 
         getDataFromNetwork(list[0].latitude, list[0].longitude, currentLanguage, list[0].adminArea)
 
@@ -151,7 +157,8 @@ class HomeFragment : Fragment(), CurrentLocationStatue {
 
     fun getDataFromNetwork(lat: Double, lon: Double, lang: String, city: String) {
 
-        viewmodel.getWeather(lat, lon, lang, getString(R.string.API_KEY2))
+        viewmodel.getWeather(lat, lon, lang, BuildConfig.ApiKey)
+
 
         lifecycleScope.launch {
             viewmodel.weather.collect {
@@ -191,7 +198,6 @@ class HomeFragment : Fragment(), CurrentLocationStatue {
                         binding.progressBar.visibility = View.VISIBLE
                         binding.nestedScrollView.visibility = View.GONE
                         //    binding.layoutFailedGetData.visibility = View.GONE
-
                     }
                     is ApiStatus.Failed -> {
                         /* binding.layoutFailedGetData.visibility = View.VISIBLE

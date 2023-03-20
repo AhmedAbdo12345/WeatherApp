@@ -4,7 +4,8 @@ plugins {
     id 'kotlin-kapt'
 
 }
-
+def API_KEY ='"' +ApiKey+'"' ?: '"Api key Not Found'
+def STRING = 'String'
 android {
     namespace 'com.example.data'
     compileSdk 33
@@ -15,6 +16,10 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
+
+        each {type ->
+            type.buildConfigField STRING,'ApiKey' ,API_KEY
+        }
     }
 
     buildTypes {

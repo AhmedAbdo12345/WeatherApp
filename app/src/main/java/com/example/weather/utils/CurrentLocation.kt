@@ -13,8 +13,13 @@ import android.location.LocationManager
 import android.provider.Settings
 import android.util.Log
 import androidx.core.app.ActivityCompat
+import androidx.core.app.ActivityCompat.requestPermissions
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
 import com.google.android.gms.location.LocationServices
 import java.util.*
+
 
 const val permissionId = 19
 
@@ -47,14 +52,20 @@ class CurrentLocation(
         return false
     }
 
+
+
     private fun requestPermissions() {
-        ActivityCompat.requestPermissions(
+      requestPermissions(
             activity, arrayOf(
                 Manifest.permission.ACCESS_COARSE_LOCATION,
                 Manifest.permission.ACCESS_FINE_LOCATION
             ), permissionId
         )
+        getLocation()
+
     }
+
+
 
     @SuppressLint("MissingPermission")
     fun getLocation() {

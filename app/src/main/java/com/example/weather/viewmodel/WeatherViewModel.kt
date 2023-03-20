@@ -15,13 +15,13 @@ import javax.inject.Inject
 @HiltViewModel
 class WeatherViewModel @Inject constructor(private val getWeatherUseCase:GetWeatherUseCase) :ViewModel(){
 
-    private var _weather: MutableStateFlow<ApiStatus?> = MutableStateFlow(null)
+    private var _weather: MutableStateFlow<ApiStatus?> = MutableStateFlow(ApiStatus.Loading(""))
     val weather: StateFlow<ApiStatus?> =_weather
 
     fun getWeather(lat:Double, lon:Double,lang:String ,apiKey:String){
         viewModelScope.launch {
             try {
-                _weather.emit(ApiStatus.Loading(""))
+             //   _weather.emit(ApiStatus.Loading(""))
 
                // _weather.value=getWeatherUseCase(lat,lon,apiKey)
 
